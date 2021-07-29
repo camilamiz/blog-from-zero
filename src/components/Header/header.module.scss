@@ -1,1 +1,21 @@
-// TODO
+.headerContainer {
+  height: 7rem;
+}
+
+.headerContent {
+  max-width: 1120px;
+  margin: 0;
+  height: 7rem;
+  display: flex;
+  justify-content: flex-start;
+
+  nav {
+    margin-left: 23.125rem;
+    margin-top: 5rem;
+
+    img {
+      width: 238.62px;
+      height: 25.63px;
+    }
+  }
+}
