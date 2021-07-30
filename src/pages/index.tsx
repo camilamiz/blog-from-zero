@@ -78,7 +78,7 @@ export default function Home( { postsPagination } : HomeProps ) {
       <Head>
         <title>Home | Blog from zero</title>
       </Head>
-      <main className={styles.contentContainer}>
+      <main className={commonStyles.contentContainer}>
         <div className={styles.postsList}>
           { posts.map(post => {
             return(
@@ -86,7 +86,7 @@ export default function Home( { postsPagination } : HomeProps ) {
                 <a>
                   <h1>{post.data.title}</h1>
                   <p>{post.data.subtitle}</p>
-                  <div className={styles.postInfo}>
+                  <div className={commonStyles.postInfo}>
                     <div>
                       <FiCalendar /> {post.first_publication_date}
                     </div>

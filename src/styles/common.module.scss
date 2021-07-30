@@ -1,1 +1,15 @@
-// TODO
+.contentContainer {
+  max-width: 1120px;
+  margin-top: 4rem;
+  margin-bottom: 8rem;
+  margin-left: 23.125rem;
+  padding: 0;
+  height: calc(100vh - 7rem);
+}
+
+.postInfo {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  font-size: 0.875rem;
+}
