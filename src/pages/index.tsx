@@ -76,7 +76,7 @@ export default function Home( { postsPagination } : HomeProps ) {
   return(
     <>
       <Head>
-        <title>Início | Blog from zero</title>
+        <title>Home | Blog from zero</title>
       </Head>
       <main className={styles.contentContainer}>
         <div className={styles.postsList}>
