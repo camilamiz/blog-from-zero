@@ -1,1 +1,54 @@
-// TODO
+.contentContainer {
+  max-width: 1120px;
+  margin-top: 4rem;
+  margin-bottom: 8rem;
+  margin-left: 23.125rem;
+  padding: 0;
+  height: calc(100vh - 7rem);
+}
+
+.postsList {
+  max-width: 700px;
+
+  h1 {
+    font-size: 1.75rem;
+    padding-bottom: 0.5rem;
+  }
+
+  p {
+    font-size: 1.125rem;
+    padding-bottom: 1rem;
+  }
+
+  a {
+    display: block;
+
+    & + a {
+      margin-top: 2rem;
+      padding-top: 2rem;
+    }
+  }
+
+  a:last-child {
+    margin-bottom: 4rem;
+  }
+
+  .postInfo {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    font-size: 0.875rem;
+  }
+}
+
+.loadMorePosts {
+  button {
+    margin-bottom: 4rem;
+
+    background-color: transparent;
+    border: 0;
+    color: var(--pink-500);
+    font-weight: bold;
+    font-size: 600;
+  }
+}
