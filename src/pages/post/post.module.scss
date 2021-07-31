@@ -1,1 +1,41 @@
-// TODO
+.banner {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+
+  img {
+    max-height: 25rem;
+  }
+}
+
+.postHeader {
+  margin-bottom: 4rem;
+  max-width: 720px;
+
+  h1 {
+    font-size: 3rem;
+    padding-bottom: 0.5rem;
+  }
+}
+
+.postContent {
+  max-width: 720px;
+
+  article {
+    & + article {
+      margin-top: 2rem;
+    }
+
+    .postText {
+      p {
+        font-size: 1.125rem;
+        margin: 1rem 0;
+      }
+    }
+  }
+
+  h2 {
+    font-size: 2rem;
+    margin-bottom: 3rem;
+  }
+}
