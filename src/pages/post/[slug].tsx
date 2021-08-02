@@ -10,6 +10,7 @@ import { getPrismicClient } from '../../services/prismic';
 import Prismic from '@prismicio/client';
 
 import ExitPreviewButton from '../../components/ExitPreviewButton';
+import Comments from '../../components/Comments';
 
 import commonStyles from '../../styles/common.module.scss';
 import styles from './post.module.scss';
@@ -117,6 +118,7 @@ export default function Post( { post, preview }: PostProps): JSX.Element {
             </a>
           </div>
         </div>
+        <Comments />
         <ExitPreviewButton preview={preview} />
       </div>
     </>
