@@ -126,24 +126,24 @@ export const getStaticProps: GetStaticProps = async ({
       pageSize: 2,
       ref: previewData?.ref ?? null,
     }
-    );
+  );
 
-    const posts = postsResponse.results.map(post => {
-      return {
-        uid: post.uid,
-        first_publication_date: post.first_publication_date,
-        data: {
-          title: post.data.title,
-          subtitle: post.data.subtitle,
-          author: post.data.author
-        }
+  const posts = postsResponse.results.map(post => {
+    return {
+      uid: post.uid,
+      first_publication_date: post.first_publication_date,
+      data: {
+        title: post.data.title,
+        subtitle: post.data.subtitle,
+        author: post.data.author
       }
-    })
-
-    const postsPagination = {
-      next_page: postsResponse.next_page,
-      results: posts,
     }
+  })
+
+  const postsPagination = {
+    next_page: postsResponse.next_page,
+    results: posts,
+  }
 
   return {
     props: {

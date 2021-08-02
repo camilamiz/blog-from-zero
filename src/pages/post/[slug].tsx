@@ -4,6 +4,7 @@ import { FiCalendar, FiUser, FiClock } from 'react-icons/fi';
 import { format } from 'date-fns';
 import { ptBR } from 'date-fns/locale';
 import { useRouter } from 'next/router';
+import Link from 'next/link';
 import Head from 'next/head';
 
 import { getPrismicClient } from '../../services/prismic';
@@ -33,12 +34,24 @@ interface Post {
   };
 }
 
-interface PostProps {
-  post: Post;
-  preview
+interface NavigatePostsProps {
+  previousPost: {
+    slug: string | null;
+    title: string | null;
+  },
+  nextPost: {
+    slug: string | null;
+    title: string | null;
+  }
 }
 
-export default function Post( { post, preview }: PostProps): JSX.Element {
+interface PostProps {
+  post: Post;
+  preview,
+  navigatePosts: NavigatePostsProps;
+}
+
+export default function Post( { post, preview, navigatePosts }: PostProps): JSX.Element {
   const router = useRouter();
 
   if (router.isFallback) {
@@ -121,16 +134,25 @@ export default function Post( { post, preview }: PostProps): JSX.Element {
         <div className={styles.extraLine}></div>
         <div className={styles.postsNavigation}>
           <div className={styles.previousPost}>
-            <a href="#">
-              <p>Como utilizar hooks</p>
-              <h4>Post anterior</h4>
-            </a>
+            { navigatePosts.previousPost.slug &&
+              <Link href={`/post/${navigatePosts.previousPost.slug}`}>
+                <a>
+                  <p>{navigatePosts.previousPost.title}</p>
+                  <h4>Post anterior</h4>
+                </a>
+              </Link>
+            }
           </div>
           <div className={styles.nextPost}>
-            <a href="#">
-              <p>Criando um app CRA do zero</p>
-              <h4>Próximo post</h4>
-            </a>
+            {
+              navigatePosts.nextPost.slug &&
+              <Link href={`/post/${navigatePosts.nextPost.slug}`}>
+                <a>
+                  <p>{navigatePosts.nextPost.title}</p>
+                  <h4>Próximo post</h4>
+                </a>
+              </Link>
+            }
           </div>
         </div>
         <Comments />
@@ -170,7 +192,6 @@ export const getStaticProps: GetStaticProps = async ({
   const response = await prismic.getByUID('pos', String(slug), {
     ref: previewData?.ref ?? null,
   });
-  console.log(JSON.stringify(response, null, 2));
 
   const content = response.data.content.map(content => {
     return {
@@ -194,10 +215,40 @@ export const getStaticProps: GetStaticProps = async ({
     }
   }
 
+  const previousPostResponse = (await prismic.query(
+    Prismic.Predicates.at('document.type', 'pos'),
+    {
+      pageSize: 1,
+      after: `${response.id}`,
+      orderings: '[document.last_publication_date desc]'
+    }
+  )).results[0];
+
+  const nextPostResponse = (await prismic.query(
+    Prismic.Predicates.at('document.type', 'pos'),
+    {
+      pageSize: 1,
+      after: `${response.id}`,
+      orderings: '[document.last_publication_date]'
+    }
+  )).results[0];
+
+  const navigatePosts = {
+    previousPost: {
+      slug: previousPostResponse?.uid ?? null,
+      title: previousPostResponse?.data.title ?? null,
+    },
+    nextPost: {
+      slug: nextPostResponse?.uid ?? null,
+      title: nextPostResponse?.data.title ?? null,
+    }
+  }
+
   return {
     props: {
       post,
-      preview
+      preview,
+      navigatePosts,
     }
   }
 };
