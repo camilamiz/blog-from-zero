@@ -137,8 +137,10 @@ export default function Post( { post, preview, navigatePosts }: PostProps): JSX.
             { navigatePosts.previousPost.slug &&
               <Link href={`/post/${navigatePosts.previousPost.slug}`}>
                 <a>
-                  <p>{navigatePosts.previousPost.title}</p>
-                  <h4>Post anterior</h4>
+                  <p>
+                    {navigatePosts.previousPost.title}<br />
+                    <span>Post anterior</span>
+                  </p>
                 </a>
               </Link>
             }
@@ -148,8 +150,10 @@ export default function Post( { post, preview, navigatePosts }: PostProps): JSX.
               navigatePosts.nextPost.slug &&
               <Link href={`/post/${navigatePosts.nextPost.slug}`}>
                 <a>
-                  <p>{navigatePosts.nextPost.title}</p>
-                  <h4>Próximo post</h4>
+                  <p>
+                    {navigatePosts.nextPost.title}<br />
+                    <span>Próximo post</span>
+                  </p>
                 </a>
               </Link>
             }

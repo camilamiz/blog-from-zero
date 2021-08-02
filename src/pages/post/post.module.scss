@@ -57,7 +57,7 @@
     height: 1.5rem;
   }
 
-  h4 {
+  span {
     font-size: 1rem;
     font-weight: 600;
     color: var(--pink-500);
@@ -65,9 +65,11 @@
 
   .previousPost {
     text-align: left;
+    max-width: 40%;
   }
 
   .nextPost {
     text-align: right;
+    max-width: 40%;
   }
 }
