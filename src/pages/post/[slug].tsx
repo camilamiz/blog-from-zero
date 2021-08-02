@@ -17,6 +17,7 @@ import styles from './post.module.scss';
 
 interface Post {
   first_publication_date: string | null;
+  last_publication_date: string | null;
   data: {
     title: string;
     banner: {
@@ -87,7 +88,21 @@ export default function Post( { post, preview }: PostProps): JSX.Element {
             </div>
           </div>
           <div className={styles.editInfo}>
-            <p>* editado em 19 mar 2021, às 15:49</p>
+            <p>* editado em{' '}
+              {
+                format(
+                  new Date(post.last_publication_date),
+                  'dd MMM yyyy',
+                  { locale: ptBR }
+                )
+              },
+              às {
+                format(
+                  new Date(post.last_publication_date),
+                  'HH:mm',
+                  { locale: ptBR }
+                )
+              }</p>
           </div>
         </div>
         <div className={styles.postContent}>
@@ -155,6 +170,7 @@ export const getStaticProps: GetStaticProps = async ({
   const response = await prismic.getByUID('pos', String(slug), {
     ref: previewData?.ref ?? null,
   });
+  console.log(JSON.stringify(response, null, 2));
 
   const content = response.data.content.map(content => {
     return {
@@ -166,6 +182,7 @@ export const getStaticProps: GetStaticProps = async ({
   const post = {
     uid: response.uid,
     first_publication_date: response.first_publication_date,
+    last_publication_date: response.last_publication_date,
     data: {
       title: response.data.title,
       subtitle: response.data.subtitle,

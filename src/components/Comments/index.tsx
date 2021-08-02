@@ -1,6 +1,6 @@
-import { Component, ReactElement } from "react";
+import { Component } from "react";
 
-export default class Comments extends Component<ReactElement> {
+export default class Comments extends Component {
   componentDidMount () {
     let script = document.createElement("script");
     let anchor = document.getElementById("inject-comments-for-uterances");
