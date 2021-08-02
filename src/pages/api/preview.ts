@@ -1,7 +1,7 @@
 import { Document } from '@prismicio/client/types/documents';
 import { getPrismicClient } from '../../services/prismic';
 
-export default async (req, res) => {
+export default async function Preview(req, res) {
   const prismic = getPrismicClient(req);
 
   const { token: ref, documentId } = req.query;
@@ -21,7 +21,7 @@ export default async (req, res) => {
     </head>`
   );
   res.end();
-};
+}
 
 function linkResolver(doc: Document): string {
   if (doc.type === 'posts') {
