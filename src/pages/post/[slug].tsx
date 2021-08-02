@@ -1,17 +1,18 @@
 import { GetStaticPaths, GetStaticProps } from 'next';
 import { RichText } from 'prismic-dom';
-
 import { FiCalendar, FiUser, FiClock } from 'react-icons/fi';
 import { format } from 'date-fns';
 import { ptBR } from 'date-fns/locale';
+import { useRouter } from 'next/router';
+import Head from 'next/head';
 
 import { getPrismicClient } from '../../services/prismic';
 import Prismic from '@prismicio/client';
 
+import ExitPreviewButton from '../../components/ExitPreviewButton';
+
 import commonStyles from '../../styles/common.module.scss';
 import styles from './post.module.scss';
-import { useRouter } from 'next/router';
-import Head from 'next/head';
 
 interface Post {
   first_publication_date: string | null;
@@ -32,9 +33,10 @@ interface Post {
 
 interface PostProps {
   post: Post;
+  preview
 }
 
-export default function Post( { post }: PostProps) {
+export default function Post( { post, preview }: PostProps): JSX.Element {
   const router = useRouter();
 
   if (router.isFallback) {
@@ -83,6 +85,9 @@ export default function Post( { post }: PostProps) {
               <FiClock /> {`${readingTime} min`}
             </div>
           </div>
+          <div className={styles.editInfo}>
+            <p>* editado em 19 mar 2021, às 15:49</p>
+          </div>
         </div>
         <div className={styles.postContent}>
           {post.data.content.map(content => {
@@ -97,6 +102,22 @@ export default function Post( { post }: PostProps) {
             );
           })}
         </div>
+        <div className={styles.extraLine}></div>
+        <div className={styles.postsNavigation}>
+          <div className={styles.previousPost}>
+            <a href="#">
+              <p>Como utilizar hooks</p>
+              <h4>Post anterior</h4>
+            </a>
+          </div>
+          <div className={styles.nextPost}>
+            <a href="#">
+              <p>Criando um app CRA do zero</p>
+              <h4>Próximo post</h4>
+            </a>
+          </div>
+        </div>
+        <ExitPreviewButton preview={preview} />
       </div>
     </>
   );
@@ -122,10 +143,16 @@ export const getStaticPaths: GetStaticPaths = async () => {
   }
 };
 
-export const getStaticProps: GetStaticProps = async context => {
+export const getStaticProps: GetStaticProps = async ({
+  params,
+  preview = false,
+  previewData,
+}) => {
   const prismic = getPrismicClient();
-  const { slug } = context.params;
-  const response = await prismic.getByUID('pos', String(slug), {});
+  const { slug } = params;
+  const response = await prismic.getByUID('pos', String(slug), {
+    ref: previewData?.ref ?? null,
+  });
 
   const content = response.data.content.map(content => {
     return {
@@ -149,6 +176,9 @@ export const getStaticProps: GetStaticProps = async context => {
   }
 
   return {
-    props: { post }
+    props: {
+      post,
+      preview
+    }
   }
 };

@@ -9,9 +9,10 @@ import { ptBR } from 'date-fns/locale';
 
 import { getPrismicClient } from '../services/prismic';
 
+import ExitPreviewButton from '../components/ExitPreviewButton';
+
 import commonStyles from '../styles/common.module.scss';
 import styles from './home.module.scss';
-import preview from './api/preview';
 
 interface Post {
   uid?: string;
@@ -33,7 +34,7 @@ interface HomeProps {
   preview: boolean;
 }
 
-export default function Home( { postsPagination, preview } : HomeProps ) {
+export default function Home( { postsPagination, preview } : HomeProps ): JSX.Element {
   const formattedPost = postsPagination.results.map(post => {
     return {
       ...post,
@@ -109,13 +110,7 @@ export default function Home( { postsPagination, preview } : HomeProps ) {
             </button>
           </div>
         )}
-        {preview && (
-          <aside>
-            <Link href="/api/exit-preview">
-              <a>Sair do modo Preview</a>
-            </Link>
-          </aside>
-        )}
+        <ExitPreviewButton preview={preview} />
       </main>
     </>
   );

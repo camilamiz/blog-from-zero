@@ -10,17 +10,18 @@
 
 .postHeader {
   margin-bottom: 4rem;
-  max-width: 720px;
 
   h1 {
     font-size: 3rem;
     padding-bottom: 0.5rem;
   }
+
+  .editInfo {
+    font-size: 0.875rem;
+  }
 }
 
 .postContent {
-  max-width: 720px;
-
   article {
     & + article {
       margin-top: 2rem;
@@ -37,5 +38,36 @@
   h2 {
     font-size: 2rem;
     margin-bottom: 3rem;
+  }
+}
+
+.extraLine {
+  height: 2rem;
+}
+
+.postsNavigation {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 5rem;
+
+  p {
+    font-size: 1rem;
+    font-weight: 400;
+    height: 1.5rem;
+  }
+
+  h4 {
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--pink-500);
+  }
+
+  .previousPost {
+    text-align: left;
+  }
+
+  .nextPost {
+    text-align: right;
   }
 }
