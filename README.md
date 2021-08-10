@@ -20,7 +20,7 @@ In both pages (home and post), we should be able to see draft posts when in prev
 
 ## How to run
 1. First, we have to clone this project by running in a terminal window the command below:
-<pre>$ git clone git@github.com:camilamiz/chakra-ui-interface.git</pre>
+<pre>$ git clone git@github.com:camilamiz/blog-from-zero.git</pre>
 
 2. Access the cloned repository with:
 <pre>$ cd chakra-ui-interface</pre>
